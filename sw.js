@@ -1,5 +1,5 @@
 // Mape Corrections – cache hors ligne. Changer VERSION à chaque mise à jour.
-const VERSION = 'mape-corrections-v4';
+const VERSION = 'mape-corrections-v5';
 const FILES = ['./', 'index.html', 'app.js', 'store.js', 'config.js', 'firebase.js', 'manifest.json', 'icon-192.png', 'icon-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

@@ -17,6 +17,7 @@ const ERR = {
   'permission-denied': 'Code d\'accès incorrect.',
   'bad-manager-code': 'Code manager incorrect.',
   'bad-codes': 'Code d\'accès ou code manager incorrect.',
+  'rules-denied': 'La base Firebase refuse l\'accès : règles non publiées ou incorrectes.',
   'needs-new-password': 'Votre mot de passe a été réinitialisé.'
 };
 export const errMsg = e => ERR[e && e.code] || (e && e.message) || 'Erreur inconnue';
@@ -52,7 +53,8 @@ async function firebaseStore() {
   async function lookup(prenom, nom) {
     const k = nameKey(prenom + ' ' + nom), nid = await nidOf(k);
     let s;
-    try { s = await F.getDoc(F.doc(db, 'names', nid)); } catch (e) { if (!navigator.onLine) fail('auth/network-request-failed'); throw e; }
+    try { s = await F.getDoc(F.doc(db, 'names', nid)); }
+    catch (e) { if (!navigator.onLine) fail('auth/network-request-failed'); if (e.code === 'permission-denied') fail('rules-denied'); throw e; }
     return { k, nid, n: s.exists() ? s.data() : null };
   }
 
