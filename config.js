@@ -26,8 +26,8 @@ export const FIREBASE_CONFIG = {
 
 // Code demandé à la création de compte (en mode Firebase, il est aussi
 // vérifié par les règles de sécurité du serveur).
-export const CODE_ACCES = 'MAPEMLE26';
+export const CODE_ACCES = ''; // vérifié par les règles Firebase
 
 // Code demandé pour un compte manager (à la création, ou pour passer
 // d'un compte technicien à manager dans les réglages).
-export const CODE_MANAGER = 'CPMape';
+export const CODE_MANAGER = ''; // vérifié par les règles Firebase
